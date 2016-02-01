@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Mon Feb 01 16:51:08 CLT 2016
+org.eclipse.jst.jee.server\:Inventario=C\:\\apache-tomcat-7.0.67\\wtpwebapps\\Inventario
+org.eclipse.jst.jee.server\:test=C\:\\apache-tomcat-7.0.67\\wtpwebapps\\test
