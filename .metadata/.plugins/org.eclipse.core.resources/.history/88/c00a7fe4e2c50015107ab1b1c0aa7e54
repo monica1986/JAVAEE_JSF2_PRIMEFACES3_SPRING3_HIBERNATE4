@@ -1,0 +1,182 @@
+package com.otv.managed.bean;
+
+
+
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+ 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+ 
+import org.springframework.dao.DataAccessException;
+ 
+import com.otv.model.Producto;
+import com.otv.producto.services.IProductoService;
+ 
+
+@ManagedBean(name="userMB")
+@RequestScoped
+public class ProductoManagedBean implements Serializable {
+     
+    private static final long serialVersionUID = 1L;
+    private static final String SUCCESS = "success";
+    private static final String ERROR   = "error";
+     
+    //Spring User Service is injected...
+    @ManagedProperty(value="#{ProductoService}")
+    IProductoService productoService;
+     
+    List<Producto> productoList;
+     
+    private int codigo;
+    private String nombre;
+    private String descripcion;
+    private int precio;
+    
+    /**
+     * Add Producto
+     * 
+     * @return String - Response Message
+     */
+    public String addUser() {
+        try {      
+            Producto producto= new Producto();
+            producto.getId();
+            producto.getNombre();
+            producto.getDescripcion();
+            producto.getPrecio();
+//            getProductoService().addProducto(producto);
+            return SUCCESS;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }   
+         
+        return ERROR;
+    }
+     
+    /**
+     * Reset Fields
+     * 
+     */
+    public void reset() {
+//        this.setId(0);
+//        this.setName("");
+//        this.setSurname("");
+    }
+     
+    /**
+     * Get User List
+     * 
+     * @return List - User List
+     */
+    public List<Producto> getUserList() {
+    	productoList = new ArrayList<Producto>();
+//    	productoList.addAll(getProducosService().getUsers());
+        return productoList;
+    }
+     
+    /**
+     * Get producto Service
+     * 
+     * @return IUserService - User Service
+     */
+    public IProductoService getProductoService() {
+        return productoService;
+    }
+ 
+    /**
+     * Set Producto Service
+     * 
+     * @param IUserService - User Service
+     */
+    public void setProductoService(IProductoService userService) {
+        this.productoService = productoService;
+    }
+     
+    /**
+     * Set Producto List
+     * 
+     * @param List Lista de productos
+     */
+    public void setUserList(List<Producto> productoList) {
+        this.productoList = productoList;
+    }
+     
+    /**
+     * Get codigo Producto 
+     * 
+     * @return int codigo productos
+     */
+    public int getCodigo() {
+        return codigo;
+    }
+ 
+    /**
+     * Set codigo Producto
+     * 
+     * @param int codigo proudcto
+     */
+    public void setCodigo(int id) {
+        this.codigo = codigo;
+    }
+
+    
+    /**
+     * Get nombre Producto 
+     * 
+     * @return String nombre productos
+     */
+	public String getNombre() {
+		return nombre;
+	}
+
+	/**
+     * Set Nombre Producto
+     * 
+     * @param String codigo proudcto
+     */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	 /**
+     * Get descripcion Producto 
+     * 
+     * @return String descripcion productos
+     */
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	/**
+     * Set Descripcion Producto
+     * 
+     * @param Strign Descripcion proudcto
+     */
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	 /**
+     * Get precio Producto 
+     * 
+     * @return int precio productos
+     */
+	public int getPrecio() {
+		return precio;
+	}
+
+	/**
+     * Set precio Producto
+     * 
+     * @param int precio proudcto
+     */
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+ 
+
+    
+}
