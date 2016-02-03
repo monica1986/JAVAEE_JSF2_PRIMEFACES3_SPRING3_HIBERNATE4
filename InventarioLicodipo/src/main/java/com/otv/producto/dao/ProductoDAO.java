@@ -1,63 +1,54 @@
 package com.otv.producto.dao;
 
 import java.util.List;
- 
+
 import com.otv.model.Producto;
- 
+
 import org.hibernate.SessionFactory;
- 
+
 /**
  * DAO Productos
  */
- 
+
 public class ProductoDAO implements IProductoDAO {
-     
-    private SessionFactory sessionFactory;
- 
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
-    }
- 
+	private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
- 
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
 
-    @Override
-    public void addProducto(Producto producto) {
-        getSessionFactory().getCurrentSession().save(producto);
-    }
- 
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
 
-    @Override
-    public void deleteProducto(Producto producto) {
-        getSessionFactory().getCurrentSession().delete(producto);
-    }
- 
+	@Override
+	public void addProducto(Producto producto) {
+		getSessionFactory().getCurrentSession().save(producto);
+	}
 
-    @Override
-    public void updateProducto(Producto producto) {
-        getSessionFactory().getCurrentSession().update(producto);
-    }
- 
+	@Override
+	public void deleteProducto(Producto producto) {
+		getSessionFactory().getCurrentSession().delete(producto);
+	}
 
-    @Override
-    public Producto getProductoById(int codigo) {
-        List list = getSessionFactory().getCurrentSession()
-                                            .createQuery("from Productos where id=?")
-                                            .setParameter(0, codigo).list();
-        return (Producto)list.get(0);
-    }
+	@Override
+	public void updateProducto(Producto producto) {
+		getSessionFactory().getCurrentSession().update(producto);
+	}
 
+	@Override
+	public Producto getProductoById(int codigo) {
+		List list = getSessionFactory().getCurrentSession().createQuery("from Producto where id=?")
+				.setParameter(0, codigo).list();
+		return (Producto) list.get(0);
+	}
 
 	@Override
 	public List<Producto> getProductos() {
-		List list = getSessionFactory().getCurrentSession().createQuery("from Productos").list();
-      return list;
-		
+		List list = getSessionFactory().getCurrentSession().createQuery("from Producto").list();
+		return list;
+
 	}
- 
 
 }

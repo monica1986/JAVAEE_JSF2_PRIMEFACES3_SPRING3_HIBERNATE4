@@ -1,0 +1,7 @@
+query oracle
+create table producto( 
+  id_producto number primary key not null,
+  nombre varchar2(50),
+  descripcion varchar2(200),
+  precio int not null
+);

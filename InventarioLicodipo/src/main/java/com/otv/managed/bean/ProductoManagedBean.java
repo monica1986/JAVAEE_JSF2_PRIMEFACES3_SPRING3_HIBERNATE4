@@ -1,8 +1,5 @@
 package com.otv.managed.bean;
 
-
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,127 +11,126 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import org.springframework.dao.DataAccessException;
- 
+
 import com.otv.model.Producto;
 import com.otv.producto.services.IProductoService;
- 
 
-@ManagedBean(name="productoMB")
+@ManagedBean(name = "productoMB")
 @RequestScoped
 public class ProductoManagedBean implements Serializable {
-     
-    private static final long serialVersionUID = 1L;
-    private static final String SUCCESS = "success";
-    private static final String ERROR   = "error";
-     
-    //Spring  is injected...
-    @ManagedProperty(value="#{ProductoService}")
-    IProductoService productoService;
-     
-    List<Producto> productoList;
-     
-    private int id;
-    private String nombre;
-    private String descripcion;
-    private int precio;
-    
-    /**
-     * Agregar Producto
-     */
-    public String addProductos() {
-        try {      
-        	 System.out.println("entro en addProductos");
-            Producto producto= new Producto();
-            producto.getId();
-            producto.getNombre();
-            producto.getDescripcion();
-            producto.getPrecio();
-            getProductoService().addProducto(producto);
-//          TODO: fcontex
-            limpiar();
-            return SUCCESS;
-          
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }   
-         
-        return ERROR;
-    }
-     
-    public void limpiar() {
-    	this.setId(0);
-    	this.setNombre("");
-    	this.setDescripcion("");
-    	this.setPrecio(0);
-    }
-     
-   
-    /**
-     * Actualizar Producto
-     */
-    public String updateProductos() {
-        Producto producto= new Producto();
-        System.out.println("Producto seleccionado: " + producto.getId());
-        //TODO: Actualizar la id del producto
-        producto.setNombre(getNombre());
-        producto.setDescripcion(getDescripcion());
-        producto.setPrecio(getPrecio());
-        
+
+	private static final long serialVersionUID = 1L;
+	private static final String SUCCESS = "success";
+	private static final String ERROR = "error";
+
+	// Spring is injected...
+	@ManagedProperty(value = "#{ProductoService}")
+	IProductoService productoService;
+
+	List<Producto> productoList;
+
+	private int id;
+	private String nombre;
+	private String descripcion;
+	private int precio;
+
+	/**
+	 * Agregar Producto
+	 * 
+	 * @return String - Response Message
+	 */
+	public String addProductos() {
+		try {
+			System.out.println("entro en addProductos");
+			Producto producto = new Producto();
+			producto.getId();
+			producto.getNombre();
+			producto.getDescripcion();
+			producto.getPrecio();
+			getProductoService().addProducto(producto);
+			// TODO: fcontex
+			limpiar();
+			return SUCCESS;
+
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+
+		return ERROR;
+	}
+
+	/**
+	 * Actualizar Producto
+	 */
+	public String updateProductos() {
+		Producto producto = new Producto();
+		System.out.println("Producto seleccionado: " + producto.getId());
+		// TODO: Actualizar la id del producto
+		producto.setNombre(getNombre());
+		producto.setDescripcion(getDescripcion());
+		producto.setPrecio(getPrecio());
+
 		getProductoService().updateProducto(producto);
-	    FacesContext context = FacesContext.getCurrentInstance();  
-	    context.addMessage(null, new FacesMessage("Producto actualizado exitosamente"));
-	    limpiar();
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, new FacesMessage("Producto actualizado exitosamente"));
+		limpiar();
 		return SUCCESS;
-    }
-    
-    
-    
-    /**
-     * Eliminar Producto
-     */
-    public String deleteProductos() {
-	    System.out.println("Entra a eliminar producto");
-	    Producto producto = new Producto();
-	    producto.getId();
-//	    producto.getNombre();
-//	    producto.getDescripcion();
-//	    producto.getPrecio();
-	    getProductoService().deleteProducto(producto);
-	    FacesContext context = FacesContext.getCurrentInstance();  
-	    context.addMessage(null, new FacesMessage("Producto eliminado exitosamente"));
-	    limpiar();
-	    return SUCCESS;
-    }
-    
-    public List<Producto> getProductoList() {
-    	productoList = new ArrayList<Producto>();
-    	productoList.addAll(getProductoService().getProductos());
-        return productoList;
-    }
-     
+	}
 
-    public IProductoService getProductoService() {
-        return productoService;
-    }
- 
+	/**
+	 * Eliminar Producto
+	 */
+	public String deleteProductos(int id) {
 
-    public void setProductoService(IProductoService productoService) {
-        this.productoService = productoService;
-    }
-     
-  
-    public void setProductoList(List<Producto> productoList) {
-        this.productoList = productoList;
-    }
-     
-    public int getId() {
-        return id;
-    }
- 
-    public void setId(int codigo) {
-        this.id = codigo;
-    }
+		try {
+			System.out.println("Entra a deleteProductos");
+			Producto producto = new Producto();
+			producto.setId(id);
+			producto.setNombre(getNombre());
+			producto.setDescripcion(getDescripcion());
+			producto.setPrecio(getPrecio());
+			getProductoService().deleteProducto(producto);
 
+			return SUCCESS;
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}
+
+		return ERROR;
+	}
+
+	public void limpiar() {
+		this.setId(0);
+		this.setNombre("");
+		this.setDescripcion("");
+		this.setPrecio(0);
+	}
+
+	public List<Producto> getProductoList() {
+		productoList = new ArrayList<Producto>();
+		productoList.addAll(getProductoService().getProductos());
+		return productoList;
+	}
+
+	public IProductoService getProductoService() {
+		return productoService;
+	}
+
+	public void setProductoService(IProductoService productoService) {
+		this.productoService = productoService;
+	}
+
+	public void setProductoList(List<Producto> productoList) {
+		this.productoList = productoList;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int codigo) {
+		this.id = codigo;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -143,7 +139,6 @@ public class ProductoManagedBean implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 
 	public String getDescripcion() {
 		return descripcion;
@@ -153,7 +148,6 @@ public class ProductoManagedBean implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-
 	public int getPrecio() {
 		return precio;
 	}
@@ -161,7 +155,5 @@ public class ProductoManagedBean implements Serializable {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
- 
 
-    
 }

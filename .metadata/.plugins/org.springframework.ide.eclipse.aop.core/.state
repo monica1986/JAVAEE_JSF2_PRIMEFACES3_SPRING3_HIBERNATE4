@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aop-reference-model>
+<aop-project name="InventarioLicodipo"/>
+<aop-project name="SpringLipodico"/>
 <aop-project name="Inventario"/>
 </aop-reference-model>

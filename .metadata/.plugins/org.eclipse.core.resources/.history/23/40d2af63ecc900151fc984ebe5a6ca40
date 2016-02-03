@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Inventario Licodipo</title>
+</h:head>
+<h:body>
+    <h:form>
+        <h:outputText value="Lista de productos : "></h:outputText>
+        <p:dataTable id="productos" var="producto" value="#{productoMB.productoList}" style="width: 10%">
+            <p:column>
+                <f:facet name="header">
+                    <h:outputText value="codigo" />
+                </f:facet>
+                <h:outputText value="#{producto.codigo}" />
+            </p:column>
+        
+        </p:dataTable>
+    </h:form>
+</h:body>
+ 
+</html>
